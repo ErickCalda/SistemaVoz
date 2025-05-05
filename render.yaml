@@ -1,0 +1,30 @@
+services:
+  # Frontend static site
+  - type: web
+    name: encuesta-frontend
+    rootDir: client
+    env: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: build
+    buildFilter:
+      paths:
+        - client/**
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://encuesta-backend.onrender.com
+
+  # Backend API service
+  - type: web
+    name: encuesta-backend
+    rootDir: server
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    buildFilter:
+      paths:
+        - server/**
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
